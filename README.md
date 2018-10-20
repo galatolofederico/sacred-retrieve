@@ -4,6 +4,10 @@ Python script for easily retrieving and processing results from a [sacred](https
 
 ## Installation
 
+```
+pip install --upgrade git+https://github.com/galatolofederico/sacred-retrieve --user
+```
+
 ## Usage
 
 ```
