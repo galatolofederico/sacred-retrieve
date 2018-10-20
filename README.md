@@ -12,11 +12,11 @@ sacred-retrieve [parameters] experiment_name
 
 For process your results you can use the following command line arguments
 
-| Argument | Description  | Example |
-|---|---|---|---|---|
-| --parameters | List of parameters which group the results by | --parameters learning_rate hidden_dim  |
-| --accumulate | List of info-dict fields to accumulate | --accumulate mean_reward |
-| --reduce | List of Reducer to compute for each result bucket | --reduce mean |
+Argument | Description  | Example 
+---|---|---
+ --parameters | List of parameters which group the results by | --parameters learning_rate hidden_dim  
+ --accumulate | List of info-dict fields to accumulate | --accumulate mean_reward 
+ --reduce | List of Reducer to compute for each result bucket | --reduce mean 
 
 The experiments results are accumulated by default  
 
