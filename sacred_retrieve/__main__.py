@@ -2,13 +2,37 @@ import pymongo
 import argparse
 from .reducers import reducers
 
+
+def accumulate_entries(hashmap, entries, args):
+    for entry in entries:
+        bucket = None
+        try:
+            bucket = "_".join([str(entry["config"][param]) for param in args.parameters])
+        except:
+            print("Skipping experiment id:%d (parameter not found) " % entry["_id"])
+            continue
+        if bucket not in hashmap:
+            hashmap[bucket] = dict((acc,[]) for acc in args.accumulate)
+            hashmap[bucket]["results"] = []
+        
+        hashmap[bucket]["results"].append(entry["result"])
+        for acc in args.accumulate:
+            try:
+                hashmap[bucket][acc].append(entry["info"][acc])
+            except:
+                print("Skipping info-dict field on experiment id:%d (info-dict field '%s' not found) " % (entry["_id"], acc))
+
+
+
+
 def main():
     parser = argparse.ArgumentParser(description='Retrieve and process results from sacred mongodb database')
 
     parser.add_argument('name',
                         metavar="name",
                         type=str,
-                        help='Experiment name',
+                        help='List of experiments names',
+                        nargs="+"
                         )
 
 
@@ -16,7 +40,8 @@ def main():
                         metavar='parameters',
                         type=str,
                         nargs='+',
-                        help='Config parameters to group by'
+                        help='Config parameters to group by',
+                        default=[]
                         )
 
 
@@ -69,28 +94,11 @@ def main():
     client = pymongo.MongoClient(args.mongodb_uri) 
 
     runs = client[args.db].runs
-    entries = runs.find({'experiment.name': args.name, "status": "COMPLETED"})
 
     hashmap = dict()
-
-    for entry in entries:
-        bucket = None
-        try:
-            bucket = "_".join([str(entry["config"][param]) for param in args.parameters])
-        except:
-            print("Skipping experiment id:%d (parameter not found) " % entry["_id"])
-            continue
-        if bucket not in hashmap:
-            hashmap[bucket] = dict((acc,[]) for acc in args.accumulate)
-            hashmap[bucket]["results"] = []
-        
-        hashmap[bucket]["results"].append(entry["result"])
-        for acc in args.accumulate:
-            try:
-                hashmap[bucket][acc].append(entry["info"][acc])
-            except:
-                print("Skipping info-dict field on experiment id:%d (info-dict field '%s' not found) " % (entry["_id"], acc))
-
+    for name in args.name:
+        entries = runs.find({'experiment.name': name, "status": "COMPLETED"})
+        accumulate_entries(hashmap, entries, args)
 
     accumulators = ["results"] + args.accumulate
 
