@@ -1,6 +1,5 @@
 import pymongo
 import argparse
-from prettytable import PrettyTable
 from .reducers import reducers
 
 def main():
@@ -112,6 +111,7 @@ def main():
         rows.append(row)
 
     if args.output == "table":
+        from prettytable import PrettyTable
         table = PrettyTable()
         table.field_names = field_names
         for row in rows:
