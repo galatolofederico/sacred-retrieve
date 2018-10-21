@@ -11,7 +11,7 @@ pip install --upgrade git+https://github.com/galatolofederico/sacred-retrieve --
 ## Usage
 
 ```
-sacred-retrieve [arguments] experiment_name
+sacred-retrieve [arguments] experiments names
 ```
 
 #### Results processing arguments
@@ -42,7 +42,7 @@ Argument | Reducer | Description  | Example
 
 
 ```
-$ sacred-retrieve experiment --parameters hidden_dim --reduce min max mean --accumulate mean_reward
+$ sacred-retrieve experiment_a experiment_b --parameters hidden_dim --reduce min max mean --accumulate mean_reward
 +------------+---------------+---------------+-----------------------------+-------------------+-------------------+---------------------------+                                              
 | hidden_dim | results (Min) | results (Max) |      results (Mean CI)      | mean_reward (Min) | mean_reward (Max) |   mean_reward (Mean CI)   |                                              
 +------------+---------------+---------------+-----------------------------+-------------------+-------------------+---------------------------+                                              
