@@ -14,7 +14,7 @@ pip install --upgrade git+https://github.com/galatolofederico/sacred-retrieve --
 sacred-retrieve [arguments] experiment_name
 ```
 
-#### Results processing
+#### Results processing arguments
 
 Argument | Description  | Example 
 ---|---|---
@@ -24,7 +24,19 @@ Argument | Description  | Example
 
 The experiments results are accumulated by default  
 
+#### Configuration arguments
 
+Argument | Description  | Example 
+---|---|---
+--output | Output format (table or csv) | --output csv
+--db | Name of the MongoDB Database | --db sacred
+--mongodb-uri | Uri for the MongoDB Connection | --mongodb-uri mongodb://db.host.tld:2500/
+
+#### Reducers specific arguments
+
+Argument | Reducer | Description  | Example 
+---|---|---|---
+--mean-ci | mean | Confidence for the confidences intervals | --mean-ci 0.99 
 
 ## Example
 
