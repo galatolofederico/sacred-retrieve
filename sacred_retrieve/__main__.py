@@ -109,10 +109,10 @@ def main():
 
 
     field_names = args.parameters + fields
-
     rows = []
     for key in hashmap:
         row = key.split("_")
+        row = [] if len(row) == 1 and row[0] == "" else row 
         for accumulator in accumulators:
             for reducer in use_reducers:
                 row.append(use_reducers[reducer](hashmap[key][accumulator]))
