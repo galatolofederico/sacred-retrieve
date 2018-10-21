@@ -20,7 +20,7 @@ setuptools.setup(
         "scipy==1.1.0"
     ],
     entry_points = {
-        'console_scripts': ['sacred-retrieve=sacred_retrieve.main:main'],
+        'console_scripts': ['sacred-retrieve=sacred_retrieve.__main__:main'],
     },
     classifiers=[
         "Programming Language :: Python :: 3.6",
