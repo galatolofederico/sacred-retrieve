@@ -36,8 +36,20 @@ Argument | Description  | Example
 
 Argument | Reducer | Description  | Example 
 ---|---|---|---
---mean-ci | mean | Confidence for the confidences intervals | --mean-ci 0.99 
+--mean-ci | mean | Confidence for the confidences intervals | --mean-ci 0.99
+--delimiter | list | Delimiter for the list of values | --delimiter :
 
+### List of Reducers
+
+The specified reducers will be applied to all the accumulated values 
+
+Reducer | Description
+---|---
+min | Compute the minimum value
+max | Compute the maximum value
+mean | Compute the Mean and Confidences Intervals of values
+count | Compute the number of values
+list | List all the values
 ## Example
 
 
