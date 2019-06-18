@@ -9,8 +9,8 @@ def accumulate_entries(hashmap, entries, args):
         skip = False
         for param in args.parameters:
             if param not in entry["config"]:
-                if args.missing == "skip":
-                    sys.stderr.write("Skipping experiment id:%d (parameter %s not found) \n" % (entry["_id"], param))
+                if args.missing == "drop":
+                    sys.stderr.write("Dropping experiment id:%d (parameter %s not found) \n" % (entry["_id"], param))
                     skip = True
                     break
                 else:
