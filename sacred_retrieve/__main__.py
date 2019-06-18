@@ -1,7 +1,7 @@
 import pymongo
 import argparse
 from .reducers import reducers
-
+import sys
 
 def accumulate_entries(hashmap, entries, args):
     for entry in entries:
@@ -10,12 +10,12 @@ def accumulate_entries(hashmap, entries, args):
         for param in args.parameters:
             if param not in entry["config"]:
                 if args.missing == "skip":
-                    print("Skipping experiment id:%d (parameter %s not found) " % (entry["_id"], param))
+                    sys.stderr.write("Skipping experiment id:%d (parameter %s not found) \n" % (entry["_id"], param))
                     skip = True
                     break
                 else:
                     entry["config"][param] = args.missing
-                    print("Overwriting experiment id:%d (parameter %s) " % (entry["_id"], param))
+                    sys.stderr.write("Overwriting experiment id:%d (parameter %s) \n" % (entry["_id"], param))
             
         if skip:
             continue
@@ -31,7 +31,7 @@ def accumulate_entries(hashmap, entries, args):
             try:
                 hashmap[bucket][acc].append(entry["info"][acc])
             except:
-                print("Skipping info-dict field on experiment id:%d (info-dict field '%s' not found) " % (entry["_id"], acc))
+                sys.stderr.write("Skipping info-dict field on experiment id:%d (info-dict field '%s' not found) \n" % (entry["_id"], acc))
 
 
 
