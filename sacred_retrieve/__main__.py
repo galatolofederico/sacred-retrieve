@@ -6,11 +6,22 @@ from .reducers import reducers
 def accumulate_entries(hashmap, entries, args):
     for entry in entries:
         bucket = None
-        try:
-            bucket = "_".join([str(entry["config"][param]) for param in args.parameters])
-        except:
-            print("Skipping experiment id:%d (parameter not found) " % entry["_id"])
+        skip = False
+        for param in args.parameters:
+            if param not in entry["config"]:
+                if args.missing == "skip":
+                    print("Skipping experiment id:%d (parameter %s not found) " % (entry["_id"], param))
+                    skip = True
+                    break
+                else:
+                    entry["config"][param] = args.missing
+                    print("Overwriting experiment id:%d (parameter %s) " % (entry["_id"], param))
+            
+        if skip:
             continue
+
+        bucket = "_".join([str(entry["config"][param]) for param in args.parameters])
+
         if bucket not in hashmap:
             hashmap[bucket] = dict((acc,[]) for acc in args.accumulate)
             hashmap[bucket]["results"] = []
@@ -78,9 +89,14 @@ def main():
                         help='Output format',
                         default="table"
                         )
-
-
-
+    
+    parser.add_argument('--missing',
+                        type=str,
+                        help='How to handle missing parameters values (use "drop" to drop or a value to overwrite)',
+                        default="drop"
+                        )
+    
+    
     for reducer in reducers:
         reducers[reducer].add_args(parser)
 

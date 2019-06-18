@@ -21,6 +21,7 @@ Argument | Description  | Example
  --parameters | List of parameters to which group the results by | --parameters learning_rate hidden_dim  
  --accumulate | List of info-dict fields to accumulate | --accumulate mean_reward 
  --reduce | List of Reducer to compute for each result bucket | --reduce mean 
+ --missing | How to handle missing parameters (default drop) | --missing 0
 
 The experiments results are accumulated by default  
 
