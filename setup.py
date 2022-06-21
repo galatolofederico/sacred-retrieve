@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         "pymongo==3.7.2",
-        "numpy==1.15.2",
+        "numpy==1.22.0",
         "prettytable==0.7.2",
         "scipy==1.1.0"
     ],
