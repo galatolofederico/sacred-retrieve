@@ -17,7 +17,7 @@ setuptools.setup(
         "pymongo==3.7.2",
         "numpy==1.15.2",
         "prettytable==0.7.2",
-        "scipy==1.1.0"
+        "scipy==1.10.0"
     ],
     entry_points = {
         'console_scripts': ['sacred-retrieve=sacred_retrieve.__main__:main'],
